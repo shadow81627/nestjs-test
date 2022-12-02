@@ -35,5 +35,22 @@ services:
       - ${POSTGRES_DB_PORT}:${POSTGRES_DB_PORT}
     volumes:
       - ./pgdata/data:/var/lib/postgresql/data
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    volumes:
+      - ./nginx/templates:/etc/nginx/templates
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    environment:
+      - NGINX_PORT=${NGINX_PORT}
+      - BACKEND_PORT=${BACKEND_PORT}
+    ports:
+      - 80:${NGINX_PORT}
+    depends_on:
+      - api
+      - postgres
+      - redis
+    networks:
+      - nesjs-network
 networks:
   nesjs-network:
