@@ -9,7 +9,8 @@ services:
       context: .
       target: "${NODE_ENV}"
       dockerfile: Dockerfile
-    entrypoint: ["npm", "run", "start:${NODE_ENV}"]
+    entrypoint: ["yarn", "start:${NODE_ENV}"]
+    # entrypoint: ["tail", "-f", "/dev/null"]
     env_file:
       - .env
     ports:
