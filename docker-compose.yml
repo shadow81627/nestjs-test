@@ -15,6 +15,9 @@ services:
       - .env
     ports:
       - 9229:9229
+    depends_on:
+      - redis
+      - postgres
     networks:
       - nesjs-network
     volumes:
