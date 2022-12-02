@@ -2,15 +2,14 @@ FROM node:fermium-alpine as dev
 RUN apk --update add postgresql-client
 
 WORKDIR /usr/src/app
-COPY package*.json ./
+COPY package.json ./
+COPY yarn.lock ./
 
-RUN npm install
-
-RUN npm install glob rimraf
+RUN yarn install
 
 COPY . .
 
-RUN npm run build
+RUN yarn run build
 
 FROM node:fermium-alpine as prod
 RUN apk --update add postgresql-client
@@ -20,9 +19,10 @@ ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY package.json ./
+COPY yarn.lock ./
 
-RUN npm install --production
+RUN yarn install
 
 COPY . .
 
