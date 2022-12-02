@@ -2,8 +2,7 @@
 version: '3.8'
 services:
   api:
-    container_name: "hrm_api_${NODE_ENV}"
-    image: "hrm_api_${NODE_ENV}"
+    image: "api_${NODE_ENV}"
     environment:
       - NODE_ENV:${NODE_ENV}
     build:
